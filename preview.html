@@ -5,13 +5,16 @@
 <style>
   body { margin: 0; padding: 32px 16px 64px; background: #F8F4EF; color: #0A394D; font-family: "Archivo Narrow", "Arial Narrow", sans-serif; }
   main { max-width: 1100px; margin: 0 auto; }
-  h1 { font-size: 1.6rem; margin: 0 0 6px; }
-  h2 { font-size: 1.4rem; font-weight: 700; text-transform: uppercase; margin: 56px 0 8px; }
-  .paste { margin: 0 0 6px; font-size: .9rem; }
-  pre { white-space: pre-wrap; word-break: break-all; background: #fff; border: 1px solid #ddd; padding: 10px 12px; font-size: .8rem; margin: 0 0 24px; }
+  h2 { font-size: 1.4rem; text-transform: uppercase; margin: 56px 0 16px; }
+  pre { white-space: pre-wrap; background: #fff; border: 1px solid #ddd; padding: 10px 12px; font-size: .8rem; }
 </style></head>
 <body><main>
 <h1>A Place at the Table events preview</h1>
-<p>Live data from Church Center (aptc), refreshed hourly. Each section is what its Squarespace Code Block shows.</p>
-<section><h2>Events page (Upcoming + Past tabs)</h2><p class="paste">Paste into a Squarespace Code Block:</p><pre>&lt;div data-cc-embed="events-page">&lt;/div>&lt;script src="https://legacyco.github.io/apat-events/embeds/events-page.js">&lt;/script></pre><div data-cc-embed="events-page"></div><script src="https://legacyco.github.io/apat-events/embeds/events-page.js"></script></section><section><h2>Home: next 3 events</h2><p class="paste">Paste into a Squarespace Code Block:</p><pre>&lt;div data-cc-embed="home-coming-up">&lt;/div>&lt;script src="https://legacyco.github.io/apat-events/embeds/home-coming-up.js">&lt;/script></pre><div data-cc-embed="home-coming-up"></div><script src="https://legacyco.github.io/apat-events/embeds/home-coming-up.js"></script></section><section><h2>Flourishing page</h2><p class="paste">Paste into a Squarespace Code Block:</p><pre>&lt;div data-cc-embed="flourishing">&lt;/div>&lt;script src="https://legacyco.github.io/apat-events/embeds/flourishing.js">&lt;/script></pre><div data-cc-embed="flourishing"></div><script src="https://legacyco.github.io/apat-events/embeds/flourishing.js"></script></section><section><h2>Table Kids page</h2><p class="paste">Paste into a Squarespace Code Block:</p><pre>&lt;div data-cc-embed="table-kids">&lt;/div>&lt;script src="https://legacyco.github.io/apat-events/embeds/table-kids.js">&lt;/script></pre><div data-cc-embed="table-kids"></div><script src="https://legacyco.github.io/apat-events/embeds/table-kids.js"></script></section>
-</main></body></html>
+<p>Live data from Church Center (aptc), checked every 30 minutes. Site-wide script: Code Injection &gt; Footer. Each spot is one Code Block with one div.</p>
+<h2>Home: next 3</h2><pre>&lt;div data-apat-events="grid" data-count="3"&gt;&lt;/div&gt;</pre><div data-apat-events="grid" data-count="3"></div>
+<h2>Kids (Visit page)</h2><pre>&lt;div data-apat-events="grid" data-count="3" data-include="Kids,Teens,Child"&gt;&lt;/div&gt;</pre><div data-apat-events="grid" data-count="3" data-include="Kids,Teens,Child"></div>
+<h2>Flourishing page</h2><pre>&lt;div data-apat-events="grid" data-count="3" data-include="Flourishing"&gt;&lt;/div&gt;</pre><div data-apat-events="grid" data-count="3" data-include="Flourishing"></div>
+<h2>Events page</h2><pre>&lt;div data-apat-events="full"&gt;&lt;/div&gt;</pre><div data-apat-events="full"></div>
+</main>
+<script src="embed/apat-events.js"></script>
+</body></html>
