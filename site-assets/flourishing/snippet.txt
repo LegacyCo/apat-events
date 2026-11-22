@@ -1,0 +1,396 @@
+<!-- APAT "Flourishing" page (code block, from mockup data-page="flourishing"). Images on GitHub Pages: LegacyCo/apat-events/site-assets/flourishing. The dates grid is filled by the site-wide apat-events.js. -->
+<style>
+.apf{--fd:aktiv-grotesk-condensed,sans-serif;--fs:span-regularconditalic,"Instrument Serif",serif;font-family:inherit;color:#0A394D;background:#F8F4EF;line-height:1.6;-webkit-font-smoothing:antialiased;width:100%}
+.apf *,.apf *::before,.apf *::after{box-sizing:border-box}
+.apf [hidden]{display:none!important}
+.apf :is(h1,h2,h3,h4,p,dl,dd,ol):not([data-apat-events] *){margin:0;padding:0;letter-spacing:normal;white-space:normal}
+.apf img:not([data-apat-events] *){max-width:100%;display:block}
+.apf button{font-family:inherit}
+.apf section{position:relative;margin:0}
+.apf .wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+.apf .band{padding:clamp(64px,10vw,128px) 0}
+.apf .band.tight{padding:clamp(48px,7vw,88px) 0}
+.apf .band.nt{padding-top:0}
+.apf .wash{background:#F2E5D4}
+.apf .dark{background:#0A394D;color:#F7EAD8}
+.apf .grainy::after{content:"";position:absolute;inset:0;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");opacity:.09;mix-blend-mode:overlay;pointer-events:none}
+.apf .grainy>.wrap{position:relative;z-index:2}
+.apf .stackgap{display:grid;gap:clamp(28px,4vw,44px)}
+.apf .two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,5vw,72px);align-items:start}
+.apf .two.end{align-items:end}.apf .two.mid{align-items:center}
+.apf .prose{display:grid;gap:16px;max-width:62ch}
+.apf .prose p,.apf p.prose{font-size:1.06rem}
+.apf .measure{max-width:62ch}
+.apf .muted{color:#4F6570}
+.apf .note{font-size:.85rem;color:#4F6570}
+.apf .mx{font-family:var(--fs);font-weight:400;font-style:normal;text-transform:uppercase;line-height:.92;letter-spacing:-.005em;text-wrap:balance;color:inherit}
+.apf .mx b{font-family:var(--fd);font-weight:700;letter-spacing:-.01em}
+.apf .mx .hl{color:#D69459}
+.apf .d1{font-size:clamp(3rem,9vw,6rem)}
+.apf .d2{font-size:clamp(2.4rem,6.4vw,5.25rem)}
+.apf .d3{font-size:clamp(2rem,4.2vw,3.4rem)}
+.apf .lede{font-family:var(--fs);font-style:italic;font-size:clamp(1.25rem,2.2vw,1.6rem);line-height:1.3}
+.apf .label{font:600 .8rem/1 var(--fd);letter-spacing:.14em;text-transform:uppercase;color:#9C5F2C}
+.apf a.pill{display:inline-flex;align-items:center;justify-content:space-between;gap:.6em;min-height:46px;min-width:min(100%,280px);padding:.2em 1.6em;border-radius:999px;font-weight:600;font-size:.82rem;line-height:1;letter-spacing:.14em;text-transform:uppercase;text-decoration:none!important;background:#D69459!important;color:#0A394D!important;border:0;transition:background .2s}
+.apf a.pill:hover{background:#E3A56C!important}
+.apf .pill svg{width:16px;height:16px;flex:none;transition:transform .25s cubic-bezier(.16,1,.3,1)}
+.apf .pill:hover svg{transform:translateX(3px)}
+.apf .page-hero{overflow:hidden;background:#0A394D;color:#F7EAD8}
+.apf .page-hero img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;opacity:.6;object-position:60% 40%}
+.apf .page-hero .wrap{position:relative;z-index:2;padding-top:clamp(84px,12vw,150px);padding-bottom:clamp(64px,9vw,110px);display:grid;gap:18px}
+.apf .page-hero h1 b{color:#D69459}
+.apf .eyebrow-sub{font:italic 400 clamp(1.4rem,3vw,2.2rem)/1 var(--fs);color:#D69459;text-transform:none}
+.apf .chips{display:flex;flex-wrap:wrap;gap:10px}
+.apf .chips span{font-weight:600;font-size:.78rem;line-height:1;letter-spacing:.12em;text-transform:uppercase;border:1px solid rgba(247,234,216,.45);border-radius:999px;padding:9px 14px}
+.apf .close{text-align:center;display:grid;gap:26px;justify-items:center}
+.apf .close h2{max-width:18ch}
+.apf .defn{font:400 clamp(1.35rem,2.4vw,1.85rem)/1.35 var(--fs);max-width:36ch}
+.apf .defn em{color:#9C5F2C}
+.apf .place{display:flex;flex-wrap:wrap;gap:.35em .55em;align-items:center;font:700 clamp(1rem,2vw,1.3rem)/1 var(--fd);letter-spacing:.12em;text-transform:uppercase}
+.apf .place span{opacity:.45}.apf .place b{color:#B7862F}.apf .place i{font-style:normal;color:#9C5F2C;opacity:.6}
+.apf .contrast{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:#D9CBB8;border:2px solid #D9CBB8}
+.apf .contrast>div{background:#FFFDFA;padding:22px 24px;display:grid;gap:6px;align-content:start}
+.apf .contrast>div:last-child{background:#0A394D;color:#F7EAD8}
+.apf .contrast h3{font-family:inherit;font-weight:600;font-size:.78rem;line-height:1;letter-spacing:.14em;text-transform:uppercase;color:#4F6570}
+.apf .contrast>div:last-child h3{color:#D69459}
+.apf .contrast p{font:400 1.25rem/1.3 var(--fs)}
+.apf .map-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;background:#0A394D}
+.apf .map{position:relative;min-width:860px;aspect-ratio:2688/1520;overflow:hidden}
+.apf .map-photo{position:absolute;inset:0;width:100%;height:100%;max-width:none!important;object-fit:cover}
+.apf .map::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,57,77,.18),transparent 30%,transparent 70%,rgba(10,57,77,.25));pointer-events:none}
+.apf .stop{position:absolute;transform:translate(-50%,-50%);width:calc(46px*var(--s,1));height:calc(46px*var(--s,1));margin:0;border-radius:50%;border:3px solid #F8F4EF;background:#0A394D;color:#F7EAD8;font:700 1.05rem/1 var(--fd);font-size:calc(1.1rem*var(--s,1))!important;letter-spacing:0;display:grid;place-items:center;cursor:pointer;box-shadow:0 8px 18px -8px rgba(10,57,77,.7);transition:transform .25s cubic-bezier(.16,1,.3,1),background .2s;z-index:2;padding:0;-webkit-appearance:none;appearance:none}
+.apf .stop svg{width:calc(22px*var(--s,1));height:calc(22px*var(--s,1))}
+.apf .stop::before{content:"";position:absolute;left:50%;top:50%;width:48px;height:48px;transform:translate(-50%,-50%);border-radius:50%}
+.apf .stop.retreat{background:#D69459;color:#0A394D}
+.apf .stop.tbd{background:#F8F4EF;color:#4F6570;border-color:#4F6570;border-style:dashed}
+.apf .stop .tip{position:absolute;left:50%;bottom:calc(100% + 10px);transform:translate(-50%,6px);white-space:nowrap;background:#0A394D;color:#F7EAD8;font-family:inherit;font-weight:600;font-size:.72rem;line-height:1;letter-spacing:.12em;text-transform:uppercase;padding:8px 11px;border-radius:999px;opacity:0;pointer-events:none;transition:opacity .2s,transform .25s cubic-bezier(.16,1,.3,1)}
+.apf .stop:hover,.apf .stop:focus-visible,.apf .stop[aria-pressed="true"]{transform:translate(-50%,-50%) scale(1.18);z-index:3}
+.apf .stop:focus-visible{outline:3px solid #D69459;outline-offset:3px}
+.apf .stop[aria-pressed="true"]{box-shadow:0 0 0 6px rgba(214,148,89,.45),0 8px 18px -8px rgba(10,57,77,.7)}
+.apf .stop:hover .tip,.apf .stop:focus-visible .tip,.apf .stop[aria-pressed="true"] .tip{opacity:1;transform:translate(-50%,0)}
+.apf .map-label{position:absolute;transform:translate(-50%,-50%);font:italic 400 1.35rem/1 var(--fs);color:#F7EAD8;text-shadow:0 2px 12px rgba(10,30,40,.75);white-space:nowrap;pointer-events:none;z-index:1}
+.apf .map-label.end{font:700 1.5rem/1 var(--fd);letter-spacing:.14em;text-transform:uppercase}
+.apf .map-label small{display:block;font:italic 400 1.05rem/1.2 var(--fs);letter-spacing:0;text-transform:none;color:#F7EAD8;text-align:center;margin-top:4px}
+.apf .map-card{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(16px,3vw,32px);align-items:start;background:#FFFDFA;border:1px solid #D9CBB8;border-top:0;padding:clamp(20px,3vw,32px)}
+.apf .map-card .num{width:76px;height:76px;border-radius:50%;background:#0A394D;color:#F7EAD8;display:grid;place-items:center;font:700 2rem/1 var(--fd)}
+.apf .map-card .num svg{width:36px;height:36px}
+.apf .map-card.retreat .num{background:#D69459;color:#0A394D}
+.apf .map-card.tbd .num{background:#F8F4EF;color:#4F6570;border:2px dashed #4F6570}
+.apf .map-card .k,.apf .trail .k{font-weight:600;font-size:.78rem;line-height:1;letter-spacing:.14em;text-transform:uppercase;color:#9C5F2C}
+.apf .map-card h3{font:700 clamp(1.8rem,3.2vw,2.6rem)/1 var(--fd);text-transform:uppercase;margin-top:6px;color:#0A394D}
+.apf .map-card .sub{font:italic 400 1.3rem/1.2 var(--fs);margin-top:4px}
+.apf .map-card dl{display:grid;grid-template-columns:110px minmax(0,1fr);gap:8px 16px;margin:16px 0 0}
+.apf .map-card dt,.apf .trail .body dt{font-weight:600;font-size:.78rem;line-height:1.6;letter-spacing:.12em;text-transform:uppercase;color:#4F6570}
+.apf .map-card dd{margin:0}
+.apf .map-legend{display:flex;flex-wrap:wrap;gap:8px 22px;font-size:.88rem;color:#4F6570;margin-top:14px;align-items:center}
+.apf .map-legend i{display:inline-block;width:14px;height:14px;border-radius:50%;margin-right:7px;vertical-align:-2px;background:#0A394D}
+.apf .map-legend i.r{background:#D69459}.apf .map-legend i.t{background:#F8F4EF;border:2px dashed #4F6570}
+.apf .trail{display:none;list-style:none;margin:18px 0 0;padding:0;position:relative}
+.apf .trail::before{content:"";position:absolute;left:21px;top:22px;bottom:30px;width:3px;background:repeating-linear-gradient(180deg,#D69459 0 6px,transparent 6px 12px)}
+.apf .trail li{position:relative;margin:0;padding:0;list-style:none}
+.apf .trail li::before,.apf .trail li::marker{content:none}
+.apf .trail details{padding-left:60px}
+.apf .trail summary{list-style:none;cursor:pointer;display:grid;gap:2px;padding:10px 0 14px;min-height:44px}
+.apf .trail summary::-webkit-details-marker{display:none}
+.apf .trail .tb{padding:10px 0 14px 60px;display:grid;gap:2px}
+.apf .trail .dot{position:absolute;left:0;top:6px;width:44px;height:44px;border-radius:50%;background:#0A394D;color:#F7EAD8;display:grid;place-items:center;font:700 1.1rem/1 var(--fd);border:3px solid #F2E5D4;z-index:1}
+.apf .trail .dot svg{width:20px;height:20px}
+.apf .trail .retreat .dot{background:#D69459;color:#0A394D}
+.apf .trail .tbd .dot{background:#F8F4EF;color:#4F6570;border:2px dashed #4F6570}
+.apf .trail .k{font-size:.72rem}
+.apf .trail h3{font:700 1.45rem/1.05 var(--fd);text-transform:uppercase;display:flex;justify-content:space-between;gap:12px;align-items:baseline;color:#0A394D}
+.apf .trail h3::after{content:"+";font:400 1.6rem/1 var(--fs);color:#9C5F2C;transition:transform .25s cubic-bezier(.16,1,.3,1)}
+.apf .trail details[open] h3::after{transform:rotate(45deg)}
+.apf .trail .tbd h3::after,.apf .trail .end h3::after{content:none}
+.apf .trail .sub{font:italic 400 1.1rem/1.2 var(--fs)}
+.apf .trail .body{background:#FFFDFA;border:1px solid #D9CBB8;padding:14px 16px;margin:0 0 16px;display:grid;gap:4px}
+.apf .trail .body dt{font-size:.72rem;margin-top:6px}
+.apf .trail .body dt:first-child{margin-top:0}
+.apf .trail .body dd{margin:0;font-size:.98rem}
+.apf .trail .end{padding:6px 0 0 60px}
+.apf .trail .end .dot{background:#3F5A3A;border-color:#F2E5D4}
+.apf .trail .end h3{font-size:1.6rem;line-height:1;letter-spacing:.06em}
+.apf .scholazo{display:grid;gap:6px;border-left:3px solid #D69459;padding-left:18px;max-width:52ch}
+.apf .scholazo b{font:700 1.4rem/1 var(--fd);text-transform:uppercase;letter-spacing:.06em}
+.apf .scholazo span{font:italic 400 1.2rem/1.35 var(--fs)}
+.apf .scroll-x{overflow-x:auto}
+.apf .sunday{display:grid;grid-template-columns:15fr 20fr 20fr 20fr 20fr 20fr 20fr 45fr;border:2px solid #0A394D;min-width:760px}
+.apf .sunday>div{padding:14px 10px;display:grid;gap:6px;align-content:start;border-right:1px solid rgba(10,57,77,.18);min-height:150px}
+.apf .sunday>div:last-child{border-right:0}
+.apf .sunday .t{font-weight:600;font-size:.78rem;line-height:1;font-variant-numeric:tabular-nums;color:#4F6570}
+.apf .sunday h4{font:700 1.05rem/1.05 var(--fd);text-transform:uppercase;color:#0A394D}
+.apf .sunday p{font-size:.85rem;line-height:1.35;color:#4F6570}
+.apf .sunday .ww{background:#F2E5D4}.apf .sunday .f1{background:#E4E9E2}.apf .sunday .f2{background:#DDE7EB}.apf .sunday .f3{background:#F2E9DA}
+.apf .sunday .meal{background:#0A394D;color:#F7EAD8}
+.apf .sunday .meal h4{color:#F7EAD8}
+.apf .sunday .meal p,.apf .sunday .meal .t{color:#F7EAD8;opacity:.85}
+.apf .touch{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(14px,2vw,22px)}
+.apf .touch>div{border-top:3px solid var(--c);padding-top:14px;display:grid;gap:6px;align-content:start}
+.apf .touch .k{font-weight:600;font-size:.75rem;line-height:1;letter-spacing:.14em;text-transform:uppercase;color:var(--c)}
+.apf .touch h3{font:700 1.4rem/1.05 var(--fd);text-transform:uppercase;color:#0A394D}
+.apf .touch p{color:#4F6570;font-size:.98rem}
+.apf .circles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(16px,3vw,36px);align-items:end;max-width:720px;margin:0 auto}
+.apf .circle{display:grid;gap:14px;justify-items:center;text-align:center}
+.apf .dots{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:180px;min-height:96px;align-content:flex-end}
+.apf .dots i{width:24px;height:24px;border-radius:50%;background:#A6C7CA}
+.apf .dots i.you{background:#D69459}
+.apf .circle h3{font:700 1.5rem/1 var(--fd);text-transform:uppercase;color:#F7EAD8}
+.apf .circle p{color:#F7EAD8;opacity:.85;font-size:.98rem;max-width:28ch}
+.apf .wheel{position:relative;width:min(100%,520px);aspect-ratio:1;margin:0 auto}
+.apf .wheel::before{content:"";position:absolute;inset:14%;border:2px dashed #D9CBB8;border-radius:50%}
+.apf .wheel .hub{position:absolute;inset:33%;border-radius:50%;background:#0A394D;color:#F7EAD8;display:grid;place-items:center;text-align:center;padding:10px;font:400 clamp(1.05rem,2.4vw,1.5rem)/1.1 var(--fs)}
+.apf .wheel .spoke{position:absolute;transform:translate(-50%,-50%);background:#FFFDFA;border:1.5px solid #B7862F;border-radius:999px;padding:9px 14px;font:700 clamp(.8rem,1.6vw,.95rem)/1 var(--fd);letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
+.apf .guides{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(16px,3vw,30px);max-width:560px}
+.apf .guides img{aspect-ratio:1;object-fit:cover;width:100%;object-position:50% 20%}
+.apf .guides h3,.apf .facts-grid h3{font:700 1.3rem/1.05 var(--fd);text-transform:uppercase;margin-top:10px;color:#0A394D}
+.apf .facts-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px;background:#D9CBB8;border:2px solid #D9CBB8}
+.apf .facts-grid>div{background:#FFFDFA;padding:24px;display:grid;gap:8px;align-content:start}
+.apf .facts-grid h3{font-size:1.35rem;line-height:1;margin-top:0;color:#9C5F2C}
+@media (max-width:900px){.apf .touch{grid-template-columns:1fr 1fr}}
+@media (max-width:820px){.apf .two{grid-template-columns:1fr}.apf .facts-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:760px){
+.apf .map-wrap{overflow:visible}
+.apf .map{min-width:0}
+.apf .stop{width:20px;height:20px;border-width:2px;font-size:.62rem!important;pointer-events:none;box-shadow:0 2px 6px rgba(10,57,77,.5)}
+.apf .stop svg{width:11px;height:11px}
+.apf .stop .tip,.apf .stop::before{display:none}
+.apf .stop[aria-pressed="true"]{transform:translate(-50%,-50%);box-shadow:0 2px 6px rgba(10,57,77,.5)}
+.apf .map-label{font-size:.85rem}
+.apf .map-label.end{font-size:.9rem}
+.apf .map-label small{display:none}
+.apf .map-card,.apf .map-legend{display:none}
+.apf .trail{display:block}
+}
+@media (max-width:700px){.apf .circles{grid-template-columns:1fr}.apf .dots{min-height:0}}
+@media (max-width:600px){.apf .contrast{grid-template-columns:1fr}}
+@media (max-width:520px){.apf .wheel{aspect-ratio:auto;display:flex;flex-wrap:wrap;gap:8px;justify-content:center}.apf .wheel::before{display:none}.apf .wheel .hub{position:static;width:100%;border-radius:14px;padding:18px}.apf .wheel .spoke{position:static;transform:none}}
+@media (max-width:480px){.apf .touch,.apf .facts-grid{grid-template-columns:1fr}}
+</style>
+<div class="apf">
+  <section class="page-hero grainy">
+    <img src="https://legacyco.github.io/apat-events/site-assets/flourishing/flourishing-oak.webp" alt="" aria-hidden="true">
+    <div class="wrap">
+      <h1 class="mx d1"><b>Flourishing</b></h1>
+      <p class="eyebrow-sub">Spiritual Formation Pathway</p>
+      <p class="lede measure">A year to grow deep roots, with a small group that walks it with you.</p>
+      <div class="chips"><span>Starts every January</span><span>10 monthly gatherings</span><span>2 retreats</span><span>A prayer partner</span><span>2 mentoring sessions</span></div>
+    </div>
+  </section>
+
+  <section class="band wash" id="apf-register">
+    <div class="wrap">
+      <div class="close">
+        <p class="label">Registration is open</p>
+        <h2 class="mx d2">Your seat <b>is waiting.</b></h2>
+        <p class="lede measure">The 2027 cohort begins Sunday, January 17. Groups are small, so spots are limited.</p>
+        <a class="pill" href="https://aptc.churchcenter.com/registrations/events/3885476" target="_blank" rel="noopener">Register now <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+        <p class="note">Opens the Church Center registration form.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band tight">
+    <div class="wrap stackgap" style="gap:24px">
+      <h2 class="mx d3">Flourishing <b>dates</b></h2>
+      <div data-apat-events="grid" data-count="3" data-include="Flourishing"></div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap two">
+      <div class="stackgap" style="gap:18px">
+        <p class="label">What is spiritual formation?</p>
+        <p class="defn">A lifestyle of interacting with the Holy Spirit, whose grace is forming us into the likeness of Jesus Christ, <em>by intimately knowing God</em> as we respond to His work for the love of the world around us.</p>
+      </div>
+      <div class="prose">
+        <p>If you're reading this, you are probably being drawn to a richer, fuller life in Jesus. That draw is coming from God Himself. So this pursuit is pure grace, and you can be confident it will bear fruit.</p>
+        <p>The aim is flourishing: the abundant life Jesus promised (John 10:10). Most of that growth happens in the ordinary parts of life, so we learn to slow down and notice the Spirit's quietest moves.</p>
+        <div class="place" aria-label="Flourishing is part of the Formed stage of our journey"><span>Found</span><i>&#8594;</i><span>Follow</span><i>&#8594;</i><b>Formed</b><i>&#8594;</i><span>Flourish</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band tight nt">
+    <div class="wrap">
+      <div class="contrast">
+        <div><h3>Most Bible studies</h3><p>Teach us about God, about right living, and about the disciplines.</p></div>
+        <div><h3>Flourishing</h3><p>Teaches us how to partner with the Holy Spirit along the way, and practice it together.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band tight wash apf-pathway" id="apf-pathway">
+    <div class="wrap stackgap" style="gap:22px">
+      <div class="two end">
+        <h2 class="mx d2">The <b>pathway</b></h2>
+        <p class="lede">Ten gatherings and two retreats, one step at a time, up the path to the oak. Tap any stop to see what happens there.</p>
+      </div>
+      <div>
+        <div class="map-wrap">
+          <div class="map" id="apf-map">
+            <img class="map-photo" src="https://legacyco.github.io/apat-events/site-assets/flourishing/flourishing-path.webp" alt="A footpath switching back and forth up a meadow to a great oak tree, with mountains and a sunrise behind it">
+            <span class="map-label" style="left:8%;top:95%">Begin here</span>
+            <span class="map-label end" style="left:66%;top:22%">Flourish<small>the abundant life &#183; John 10:10</small></span>
+            <button type="button" style="left:20%;top:88%;--s:1" class="stop" aria-pressed="true" aria-label="Module 1: Introduction">1<span class="tip">Introduction</span></button>
+            <button type="button" style="left:38%;top:81%;--s:1" class="stop" aria-pressed="false" aria-label="Module 2: The Voice of God">2<span class="tip">The Voice of God</span></button>
+            <button type="button" style="left:60%;top:81%;--s:1" class="stop" aria-pressed="false" aria-label="Module 3: Intimacy with God">3<span class="tip">Intimacy with God</span></button>
+            <button type="button" style="left:82%;top:79.3%;--s:1" class="stop retreat" aria-pressed="false" aria-label="Retreat 1: Spring Retreat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20 12 5l9 15Z"/><path d="M12 20v-6l-3 6M12 14l3 6"/></svg><span class="tip">Spring Retreat</span></button>
+            <button type="button" style="left:72%;top:69%;--s:0.92" class="stop tbd" aria-pressed="false" aria-label="Module 4: Coming soon">4<span class="tip">Module 4</span></button>
+            <button type="button" style="left:48%;top:66.3%;--s:0.92" class="stop" aria-pressed="false" aria-label="Module 5: Emotional Flourishing">5<span class="tip">Emotional Flourishing</span></button>
+            <button type="button" style="left:24%;top:64.8%;--s:0.92" class="stop" aria-pressed="false" aria-label="Module 6: The Prayer of Examen">6<span class="tip">The Prayer of Examen</span></button>
+            <button type="button" style="left:30%;top:56.3%;--s:0.84" class="stop tbd" aria-pressed="false" aria-label="Module 7: Coming soon">7<span class="tip">Module 7</span></button>
+            <button type="button" style="left:50%;top:53.9%;--s:0.84" class="stop tbd" aria-pressed="false" aria-label="Module 8: Coming soon">8<span class="tip">Module 8</span></button>
+            <button type="button" style="left:70%;top:50.1%;--s:0.84" class="stop retreat" aria-pressed="false" aria-label="Retreat 2: Fall Retreat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c2 4 6 6 6 11a6 6 0 0 1-12 0c0-3 2-4 2-7 2 1 3 3 3 5 1-1 1-3 1-9Z"/><path d="M5 21h14"/></svg><span class="tip">Fall Retreat</span></button>
+            <button type="button" style="left:80%;top:43.7%;--s:0.76" class="stop tbd" aria-pressed="false" aria-label="Module 9: Coming soon">9<span class="tip">Module 9</span></button>
+            <button type="button" style="left:56%;top:42.3%;--s:0.76" class="stop tbd" aria-pressed="false" aria-label="Module 10: Coming soon">10<span class="tip">Module 10</span></button>
+          </div>
+        </div>
+        <ol class="trail" id="apf-trail" aria-label="The Flourishing pathway, step by step"></ol>
+        <div class="map-card" id="apf-card" aria-live="polite"></div>
+        <div class="map-legend"><span><i></i>Monthly gathering</span><span><i class="r"></i>Retreat</span><span><i class="t"></i>Details coming</span></div>
+      </div>
+    </div>
+    <script type="application/json" class="apf-stops">[{"n": "1", "kind": "module", "k": "Module 1", "title": "Introduction", "sub": "Becoming like Jesus", "teach": "What spiritual formation is, and its goal: becoming like Jesus. Compassionate, unflappable, honest about weakness, confidently dependent on the Father.", "practice": "Imaginative prayer with Mark 10:46\u201352. The Disciples\u2019 Prayer.", "word": "John 10:10 \u00b7 John 17:3"}, {"n": "2", "kind": "module", "k": "Module 2", "title": "The Voice of God", "sub": "Learning to hear Him", "teach": "Jesus is the foundation of reality. How God speaks, and how we listen for Him together.", "practice": "Lectio Divina. Listening with God. Group listening.", "word": "John 14:6"}, {"n": "3", "kind": "module", "k": "Module 3", "title": "Intimacy with God", "sub": "Courage needed, gold to be found", "teach": "Knowing God is life. Our experience of Him changes with the seasons, and that is normal.", "practice": "Silence: quieting the mind and emotions to go deeper with the Father.", "word": "John 17:3"}, {"n": "", "kind": "retreat", "icon": 0, "k": "Retreat 1", "title": "Spring Retreat", "sub": "One Saturday in April, all day", "teach": "A full day set apart with your cohort, away from the usual pace.", "practice": "Rest, silence, and listening together.", "word": ""}, {"n": "4", "kind": "tbd", "k": "Module 4", "title": "Coming soon", "sub": "Title to come from the workbook", "teach": "", "practice": "", "word": ""}, {"n": "5", "kind": "module", "k": "Module 5", "title": "Emotional Flourishing", "sub": "Emotions with God", "teach": "We are body, soul, and spirit. Bringing our emotions to God, so that once healed, they become assets for a flourishing life.", "practice": "Emotions with God: noticing what we feel and bringing it to Him.", "word": ""}, {"n": "6", "kind": "module", "k": "Module 6", "title": "The Prayer of Examen", "sub": "Noticing God in your day", "teach": "Looking back over the day with God, to notice where He was present and where you turned toward or away from Him.", "practice": "The daily Examen.", "word": ""}, {"n": "7", "kind": "tbd", "k": "Module 7", "title": "Coming soon", "sub": "Title to come from the workbook", "teach": "", "practice": "", "word": ""}, {"n": "8", "kind": "tbd", "k": "Module 8", "title": "Coming soon", "sub": "Title to come from the workbook", "teach": "", "practice": "", "word": ""}, {"n": "", "kind": "retreat", "icon": 1, "k": "Retreat 2", "title": "Fall Retreat", "sub": "Two evenings, September or October", "teach": "Two evenings together as the year turns toward harvest.", "practice": "Reflecting on what God has grown in you.", "word": ""}, {"n": "9", "kind": "tbd", "k": "Module 9", "title": "Coming soon", "sub": "Title to come from the workbook", "teach": "", "practice": "", "word": ""}, {"n": "10", "kind": "tbd", "k": "Module 10", "title": "Coming soon", "sub": "Title to come from the workbook", "teach": "", "practice": "", "word": ""}]</script>
+  </section>
+
+  <section class="band tight">
+    <div class="wrap stackgap">
+      <div class="two end">
+        <h2 class="mx d3">A <b>Flourishing Sunday</b></h2>
+        <div class="scholazo"><b>Scholazo</b><span>To be devoted to, and undistracted by other things, so that we may be filled with the fullness of God.</span></div>
+      </div>
+      <p class="muted measure">Third Sunday of the month, 3:00 to 6:00 PM. Restful and unhurried. Phones off. We begin in quiet, becoming aware of Jesus, then move through three movements twice before sharing a meal.</p>
+      <div class="scroll-x">
+        <div class="sunday" role="list" aria-label="A Flourishing Sunday from 3:00 to 6:00 PM">
+          <div class="ww" role="listitem"><span class="t">3:00</span><h4>Welcome</h4><p>Quiet, then worship</p></div>
+          <div class="f1" role="listitem"><span class="t">3:15</span><h4>Foundations</h4><p>Teaching toward wholeness</p></div>
+          <div class="f2" role="listitem"><span class="t">3:35</span><h4>Fundamentals</h4><p>A practice that transforms</p></div>
+          <div class="f3" role="listitem"><span class="t">3:55</span><h4>Reinforcing</h4><p>Growing together in groups</p></div>
+          <div class="f1" role="listitem"><span class="t">4:15</span><h4>Foundations</h4><p>Second teaching</p></div>
+          <div class="f2" role="listitem"><span class="t">4:35</span><h4>Fundamentals</h4><p>Second practice</p></div>
+          <div class="f3" role="listitem"><span class="t">4:55</span><h4>Reinforcing</h4><p>Group reflection</p></div>
+          <div class="meal" role="listitem"><span class="t">5:15 &#8211; 6:00</span><h4>The meal</h4><p>We end at the table, together.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band tight wash">
+    <div class="wrap stackgap">
+      <h2 class="mx d3">Between <b>Sundays</b></h2>
+      <div class="touch">
+        <div style="--c:#56744A"><span class="k">Foundations</span><h3>Daily reading</h3><p>Short reading prompts emailed to you, for each day.</p></div>
+        <div style="--c:#2C6C84"><span class="k">Fundamentals</span><h3>Daily practice</h3><p>A spiritual practice to live with between gatherings.</p></div>
+        <div style="--c:#B7862F"><span class="k">Reinforcing</span><h3>Your cohort</h3><p>A 60 to 90 minute meeting each week, on Zoom or in person.</p></div>
+        <div style="--c:#7A5641"><span class="k">Sourcing</span><h3>Prayer partner</h3><p>A 30 minute call each week with the person praying for you.</p></div>
+      </div>
+      <p class="muted measure">Once a month you share a short written reflection with your cohort. Twice in the year you meet with a spiritual director for one-on-one mentoring.</p>
+    </div>
+  </section>
+
+  <section class="band tight dark grainy">
+    <div class="wrap stackgap">
+      <div class="two end">
+        <h2 class="mx d2">Your circle <b class="hl">grows</b></h2>
+        <p style="opacity:.9">Growth happens best through vulnerability and trust, so the groups stay small. Leadership forms them after much prayer, and they stay together all year.</p>
+      </div>
+      <div class="circles">
+        <div class="circle"><div class="dots" aria-hidden="true"><i class="you"></i><i></i></div><h3>A prayer partner</h3><p>One person praying for you, and you for them, all year.</p></div>
+        <div class="circle"><div class="dots" aria-hidden="true"><i class="you"></i><i></i><i></i><i></i></div><h3>A group of four</h3><p>Your core group. Where most of the honest conversation happens.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap two mid">
+      <div class="stackgap" style="gap:20px">
+        <h2 class="mx d3">Formation for <b>the whole person</b></h2>
+        <p class="prose">Flourishing cultivates an ongoing responsiveness to the Holy Spirit in every area of life. Knowing a verse matters. Living it is where we're changed.</p>
+      </div>
+      <div class="wheel"><div class="hub">Becoming like Jesus</div><span class="spoke" style="left:50.0%;top:14.0%">Spirit</span><span class="spoke" style="left:78.1%;top:27.6%">Emotions</span><span class="spoke" style="left:85.1%;top:58.0%">Relationships</span><span class="spoke" style="left:65.6%;top:82.4%">Mind</span><span class="spoke" style="left:34.4%;top:82.4%">Work</span><span class="spoke" style="left:14.9%;top:58.0%">Body</span><span class="spoke" style="left:21.9%;top:27.6%">Resources</span></div>
+    </div>
+  </section>
+
+  <section class="band tight wash">
+    <div class="wrap two mid">
+      <div class="stackgap" style="gap:16px">
+        <h2 class="mx d3">Your <b>guides</b></h2>
+        <p>Flourishing is led by David Brown and Reid Satterfield. Reid helped pioneer this approach to spiritual formation at Gordon-Conwell's Pierce Center for Disciple Making, where David first learned it. David pairs it with an intentional, Spirit-filled life.</p>
+      </div>
+      <div class="guides">
+        <div><img src="https://legacyco.github.io/apat-events/site-assets/flourishing/david-brown.webp" alt="David Brown" loading="lazy"><h3>David Brown</h3><p class="muted">Lead Pastor</p></div>
+        <div><img src="https://legacyco.github.io/apat-events/site-assets/flourishing/reid-satterfield.webp" alt="Reid Satterfield" loading="lazy"><h3>Reid Satterfield</h3><p class="muted">Pastor of Care</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band tight">
+    <div class="wrap stackgap">
+      <h2 class="mx d3">The <b>details</b></h2>
+      <div class="facts-grid">
+        <div><h3>Gatherings</h3><p>Starts once a year, in January. 10 monthly gatherings, third Sunday, 3:00&#8211;6:00 PM, meal included.</p></div>
+        <div><h3>Retreats</h3><p>A full Saturday in April, and two evenings in September or October.</p></div>
+        <div><h3>Where</h3><p>Monthly gatherings at the Rainbow Express Ministry House in Matthews.</p></div>
+        <div><h3>Cost</h3><p>About $300 per person, heavily subsidized by the church. It covers both retreats and a meal every month.</p></div>
+        <div><h3>Child care</h3><p>Available for an added cost, kept as affordable as we can.</p></div>
+        <div><h3>Workbook</h3><p>Every participant gets the Flourishing workbook, with readings and reflection prompts.</p></div>
+      </div>
+    </div>
+  </section>
+</div>
+<script>
+(function () {
+  var ICONS = [
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20 12 5l9 15Z"/><path d="M12 20v-6l-3 6M12 14l3 6"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c2 4 6 6 6 11a6 6 0 0 1-12 0c0-3 2-4 2-7 2 1 3 3 3 5 1-1 1-3 1-9Z"/><path d="M5 21h14"/></svg>'
+  ];
+  var LEAF = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22v-7M12 15c-5 0-8-3-8-7s4-6 8-6 8 2 8 6-3 7-8 7Z"/></svg>';
+  function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function dotOf(d) { return typeof d.icon === 'number' ? ICONS[d.icon] : esc(d.n); }
+  function kindOf(d) { return d.kind === 'retreat' ? 'retreat' : d.kind === 'tbd' ? 'tbd' : ''; }
+  function rowsOf(d) {
+    return (d.teach ? '<dt>' + (d.kind === 'retreat' ? 'What it is' : 'Teaching') + '</dt><dd>' + esc(d.teach) + '</dd>' : '')
+      + (d.practice ? '<dt>Practice</dt><dd>' + esc(d.practice) + '</dd>' : '')
+      + (d.word ? '<dt>Scripture</dt><dd>' + esc(d.word) + '</dd>' : '');
+  }
+  function setup(sec) {
+    sec.setAttribute('data-apf-ready', '1');
+    var data = sec.querySelector('.apf-stops'), map = sec.querySelector('.map');
+    if (!data || !map) return;
+    var stops;
+    try { stops = JSON.parse(data.textContent); } catch (e) { return; }
+    var btns = map.querySelectorAll('.stop'), card = sec.querySelector('.map-card'), list = sec.querySelector('.trail');
+    function pick(i) {
+      var d = stops[i]; if (!d || !card) return;
+      for (var j = 0; j < btns.length; j++) btns[j].setAttribute('aria-pressed', j === i ? 'true' : 'false');
+      var k = kindOf(d);
+      card.className = 'map-card' + (k ? ' ' + k : '');
+      var rows = d.kind === 'tbd'
+        ? '<dl><dt>Status</dt><dd>This module is in the workbook draft. Its title and summary go here once it\u2019s final.</dd></dl>'
+        : '<dl>' + rowsOf(d) + '</dl>';
+      card.innerHTML = '<div class="num">' + dotOf(d) + '</div><div><span class="k">' + esc(d.k) + '</span><h3>' + esc(d.title) + '</h3><p class="sub">' + esc(d.sub) + '</p>' + rows + '</div>';
+    }
+    Array.prototype.forEach.call(btns, function (b, i) {
+      b.addEventListener('mouseenter', function () { pick(i); });
+      b.addEventListener('focus', function () { pick(i); });
+      b.addEventListener('click', function () { pick(i); });
+    });
+    pick(0);
+    if (list) {
+      list.innerHTML = stops.map(function (d) {
+        var k = kindOf(d);
+        var dot = '<span class="dot" aria-hidden="true">' + dotOf(d) + '</span>';
+        var head = '<span class="k">' + esc(d.k) + '</span><h3>' + esc(d.title) + '</h3><span class="sub">' + esc(d.sub) + '</span>';
+        if (d.kind === 'tbd') return '<li class="' + k + '">' + dot + '<div class="tb">' + head + '</div></li>';
+        return '<li class="' + k + '">' + dot + '<details><summary>' + head + '</summary><dl class="body">' + rowsOf(d) + '</dl></details></li>';
+      }).join('') + '<li class="end"><span class="dot" aria-hidden="true">' + LEAF + '</span><span class="k">The destination</span><h3>Flourish</h3><span class="sub">The abundant life Jesus promised. John 10:10</span></li>';
+    }
+  }
+  function init() {
+    var secs = document.querySelectorAll('.apf .apf-pathway:not([data-apf-ready])');
+    for (var i = 0; i < secs.length; i++) setup(secs[i]);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
