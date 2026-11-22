@@ -1,3 +1,4 @@
+<style>/* full-bleed in its Classic section */[data-section-id="6b02f06337440f14da9fdc9f"] .content-wrapper{padding-top:0!important;padding-bottom:0!important;max-width:none!important}[data-section-id="6b02f06337440f14da9fdc9f"] .content,[data-section-id="6b02f06337440f14da9fdc9f"] .sqs-layout{max-width:none!important}.apf{width:100vw;position:relative;left:50%;margin-left:-50vw}</style>
 <!-- APAT "Flourishing" page (code block, from mockup data-page="flourishing"). Images on GitHub Pages: LegacyCo/apat-events/site-assets/flourishing. The dates grid is filled by the site-wide apat-events.js. -->
 <style>
 .apf{--fd:aktiv-grotesk-condensed,sans-serif;--fs:span-regularconditalic,"Instrument Serif",serif;font-family:inherit;color:#0A394D;background:#F8F4EF;line-height:1.6;-webkit-font-smoothing:antialiased;width:100%}
