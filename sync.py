@@ -1,0 +1,179 @@
+#!/usr/bin/env python3
+"""Copies A Place at the Table's public Church Center calendar into events.json.
+
+Runs on GitHub Actions (see .github/workflows/sync.yml). It reads only what
+anyone can see on aptc.churchcenter.com/calendar, so it needs
+no password or key. Standard library only.
+"""
+import html, json, os, re, sys, time, urllib.request
+from datetime import datetime, timezone, timedelta
+
+SUBDOMAIN = "aptc"
+CAL_PAGE = f"https://{SUBDOMAIN}.churchcenter.com/calendar?view=list"
+API = "https://api.churchcenter.com/calendar/v2/events"
+DAYS_AHEAD = 365
+DAYS_BACK = 1825     # 5 years: keep every past event Church Center has (APAT: back to April 2023)
+PUBLIC_PLACE = re.compile(r"Place at the Table|APT|YMCA|Church", re.I)
+UA = "Mozilla/5.0 (compatible; APATEventsSync/1.0; +https://aplaceatthetable.squarespace.com)"
+
+
+def get(url, headers=None, tries=3):
+    for i in range(tries):
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "application/json, text/html", **(headers or {})})
+            with urllib.request.urlopen(req, timeout=30) as r:
+                return r.read().decode("utf-8")
+        except Exception as e:  # network hiccup: wait and retry
+            if i == tries - 1:
+                raise
+            print("retrying after:", e, file=sys.stderr)
+            time.sleep(5 * (i + 1))
+
+
+def visitor_token():
+    """Church Center gives every visitor a short-lived read-only token.
+
+    Since Nov 2026 it comes from POST /sessions/tokens on the church's
+    Church Center site; older pages embedded it in the calendar page, so that
+    is kept as a fallback."""
+    try:
+        req = urllib.request.Request(f"https://{SUBDOMAIN}.churchcenter.com/sessions/tokens", data=b"", method="POST",
+                                     headers={"User-Agent": UA, "Accept": "application/json"})
+        with urllib.request.urlopen(req, timeout=30) as r:
+            tok = json.loads(r.read().decode("utf-8"))["data"]["attributes"]["token"]
+        if tok:
+            return tok
+    except Exception as e:
+        print("token endpoint failed, trying the page:", e, file=sys.stderr)
+    page = get(CAL_PAGE)
+    m = re.search(r'\\"token\\",\\"([A-Za-z0-9._\-]{20,})\\"', page) or re.search(r'"token"\s*:\s*"([A-Za-z0-9._\-]{20,})"', page)
+    if not m:
+        raise SystemExit("Couldn't get a Church Center visitor token; Church Center may have changed again.")
+    return m.group(1)
+
+
+def text_of(desc_html):
+    t = re.sub(r"<(br|/div|/p|/li)[^>]*>", "\n", desc_html or "")
+    t = html.unescape(re.sub(r"<[^>]+>", "", t))
+    return re.sub(r"\n\s*\n+", "\n\n", t).strip()
+
+
+def fetch_all(url, auth, places, regs, stop_after=None):
+    raw = []
+    while url:
+        d = json.loads(get(url, auth))
+        for inc in d.get("included", []):
+            if inc["type"] == "Location":
+                places[inc["id"]] = inc["attributes"]
+            elif inc["type"] == "EventRegistrationUrl":
+                regs[inc["id"]] = inc["attributes"].get("url")
+        raw.extend(d.get("data", []))
+        url = (d.get("links") or {}).get("next")
+        if stop_after and raw and raw[-1]["attributes"]["starts_at"] > stop_after:
+            break
+    return raw
+
+
+def iso(dt):
+    return dt.strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def ics(events, now):
+    """A calendar people can subscribe to (Apple, Google, Outlook)."""
+    def esc(t):
+        return str(t or "").replace("\\", "\\\\").replace(";", "\\;").replace(",", "\\,").replace("\n", "\\n")
+    def fold(line):  # lines longer than 75 bytes continue on the next line, starting with a space
+        out, b = [], line.encode("utf-8")
+        while len(b) > 75:
+            cut = 75
+            while (b[cut] & 0xC0) == 0x80:
+                cut -= 1
+            out.append(b[:cut].decode("utf-8"))
+            b = b" " + b[cut:]
+        out.append(b.decode("utf-8"))
+        return "\r\n".join(out)
+    stamp = now.strftime("%Y%m%dT%H%M%SZ")
+    t = lambda s: s.replace("-", "").replace(":", "")
+    lines = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//A Place at the Table//Events//EN", "CALSCALE:GREGORIAN",
+             "METHOD:PUBLISH", "X-WR-CALNAME:A Place at the Table", "X-WR-TIMEZONE:America/New_York",
+             "REFRESH-INTERVAL;VALUE=DURATION:PT6H", "X-PUBLISHED-TTL:PT6H"]
+    for e in events:
+        lines += ["BEGIN:VEVENT", f"UID:{e['id']}@aptc.churchcenter.com", f"DTSTAMP:{stamp}"]
+        if e["all_day"]:
+            lines += [f"DTSTART;VALUE=DATE:{e['start'][:10].replace('-', '')}", f"DTEND;VALUE=DATE:{e['end'][:10].replace('-', '')}"]
+        else:
+            lines += [f"DTSTART:{t(e['start'])}", f"DTEND:{t(e['end'])}"]
+        lines += ["SUMMARY:" + esc(e["title"]), "DESCRIPTION:" + esc((e["description"] + "\n\n" if e["description"] else "") + e["details_url"]),
+                  "LOCATION:" + esc(e["location"] or e["location_name"]), "URL:" + e["details_url"], "END:VEVENT"]
+    lines.append("END:VCALENDAR")
+    return "\r\n".join(fold(l) for l in lines) + "\r\n"
+
+
+def main():
+    token = visitor_token()
+    auth = {"Authorization": "Bearer " + token}
+    now = datetime.now(timezone.utc)
+    until, since = iso(now + timedelta(days=DAYS_AHEAD)), iso(now - timedelta(days=DAYS_BACK))
+    places, regs = {}, {}
+    base = API + "?include=location,event_registration_url&order=visible_starts_at&per_page=100"
+    raw = fetch_all(base + "&filter=upcoming", auth, places, regs, stop_after=until)
+    raw += fetch_all(base + f"&where%5Bstarts_at%5D%5Bgte%5D={since}&where%5Bstarts_at%5D%5Blt%5D={iso(now)}", auth, places, regs)
+
+    events, seen = [], set()
+    for e in raw:
+        a, rel = e["attributes"], e.get("relationships", {})
+        if e["id"] in seen or a["starts_at"] > until or a["starts_at"] < since:
+            continue
+        seen.add(e["id"])
+        loc = places.get(((rel.get("location") or {}).get("data") or {}).get("id"), {})
+        reg = regs.get(((rel.get("event_registration_url") or {}).get("data") or {}).get("id"))
+        events.append({
+            "id": e["id"],
+            "event_id": str(a.get("event_group") or e["id"]),
+            "title": (a.get("name") or "").strip(),
+            "description": text_of(a.get("description"))[:400],
+            "start": a["starts_at"],
+            "end": a.get("ends_at") or a["starts_at"],
+            "all_day": bool(a.get("all_day_event")),
+            "multi_day": bool(a.get("multi_day_event")),
+            "location_name": loc.get("name") or "",
+            # Street address only for church places; homes show just their name (Church Center still has it).
+            "location": (loc.get("full_formatted_address") or "").replace("\n", ", ") if loc.get("display_on_church_center", True) and PUBLIC_PLACE.search(loc.get("name") or "") else "",
+            "recurring": bool(a.get("recurring")),
+            "recurrence": a.get("recurrence_description") or "",
+            "image": a.get("image_url") or "",
+            "featured": bool(a.get("featured")),
+            "registration_url": reg,
+            "details_url": a.get("public_url") or f"https://{SUBDOMAIN}.churchcenter.com/calendar/event/{e['id']}",
+        })
+    events.sort(key=lambda x: (x["start"], x["title"]))
+    if not events:
+        raise SystemExit("Church Center returned no upcoming events; keeping the last good file.")
+
+    out = {
+        "generated_at": iso(now),
+        "source": CAL_PAGE.split("?")[0],
+        "timezone": "America/New_York",
+        "count": len(events),
+        "events": events,
+    }
+    # Unchanged since the last save and saved under 6 hours ago: leave the file
+    # alone, so the repository only records real changes (plus a 6-hourly check-in).
+    try:
+        with open("events.json", encoding="utf-8") as f:
+            old = json.load(f)
+        age = datetime.now(timezone.utc) - datetime.strptime(old["generated_at"], "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
+        if old.get("events") == events and age < timedelta(hours=6) and os.path.exists("events.ics"):
+            print(f"no change ({len(events)} events)")
+            return
+    except (OSError, ValueError, KeyError):
+        pass
+    with open("events.json", "w", encoding="utf-8") as f:
+        json.dump(out, f, ensure_ascii=False, separators=(",", ":"))
+    with open("events.ics", "w", encoding="utf-8", newline="") as f:
+        f.write(ics(events, now))
+    print(f"wrote {len(events)} events")
+
+
+if __name__ == "__main__":
+    main()
